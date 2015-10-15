@@ -1,5 +1,5 @@
 # Cumulus VX - One Stop Demo
-### _A two-tier, nine switch topology of Cumulus VX switches and three Ubuntu hosts with a range of topologies which can be deployed with Ansible automation.
+### _A two-tier, nine switch topology of Cumulus VX switches and three Ubuntu hosts with a range of topologies which can be deployed with Ansible automation._
 
 
 #### Prerequisites
@@ -17,7 +17,7 @@
 
 #### Network Diagram
 ![Topology](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/Topology/raw-topology.png)
-
+![Topology-9s](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/Topology/raw-topology-9s.png)
 
 #### Instructions
   1. Download and/or install all the above prerequisites.
