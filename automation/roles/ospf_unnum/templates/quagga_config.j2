@@ -1,0 +1,48 @@
+{% set intvars = ospf[ansible_hostname] -%}
+{% set addrvars = addresses[ansible_hostname] -%}
+{% set loopback = addrvars.loopback -%}
+{% set int_unnumbered = intvars.int_unnumbered -%}
+{% set local_net = intvars.local_net -%}
+{% set svi = addrvars.svi -%}
+{% set anycast = applications.advertise[ansible_hostname] -%}
+{% set anycast_ip = applications.anycast_ip -%}
+
+{% for item in int_unnumbered -%}
+interface {{ item }}
+  ip ospf network point-to-point
+!
+{% endfor -%}
+!
+{% if local_net is defined -%}
+{% for item in local_net -%}
+interface {{ item }}
+  ip ospf network point-to-point
+!
+{% endfor -%}
+{% endif -%}
+!
+!
+router-id {{ loopback }}
+router ospf
+  auto-cost reference-bandwidth  40000
+  ospf router-id {{ loopback }}
+{% if anycast is defined -%}
+  redistribute static route-map anycast_application
+{% endif -%}
+  passive-interface default
+{% for item in int_unnumbered %}
+  no passive-interface {{ item }}
+{% endfor %}
+  network {{ loopback }}/32 area 0.0.0.0
+{% if svi is defined -%}
+  network {{ svi }} area 0.0.0.0
+{% endif -%}
+!
+{% if anycast is defined -%}
+ip route {{ anycast_ip }} br0.10
+!
+ip prefix-list anycast_application seq 5 permit {{ anycast_ip }} 
+!
+route-map anycast_application permit 10
+ match ip address prefix-list anycast_application
+{% endif -%}

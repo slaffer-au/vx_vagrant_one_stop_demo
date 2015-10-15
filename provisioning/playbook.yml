@@ -1,0 +1,14 @@
+---
+- hosts: all
+  user: vagrant
+  sudo: yes
+  tasks:
+    - name: configure /etc/motd
+      template: src=motd.j2 dest=/etc/motd
+
+    - name: push hypervisors public SSH key
+      # If Linux
+      # authorized_key: user=vagrant key="{{ lookup('file', '/home/slaffer/.ssh/id_rsa.pub') }}"
+      
+      # If Mac
+      authorized_key: user=vagrant key="{{ lookup('file', '/Users/slaffer/.ssh/id_rsa.pub') }}"

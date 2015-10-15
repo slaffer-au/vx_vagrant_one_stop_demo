@@ -1,0 +1,46 @@
+- set_fact:
+    unnumbered: "{{ ospf[ansible_hostname].int_unnumbered }}"
+- set_fact:
+    loopback: "{{ addresses[ansible_hostname].loopback }}"
+- set_fact:
+    svi: "{{ addresses[ansible_hostname].svi }}"
+  when: addresses[ansible_hostname].svi is defined
+
+- name: Add source /etc/network/interfaces.d/*
+  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*'
+  sudo: yes
+
+- name: configure loopback interface
+  cl_interface:
+    name: 'lo'
+    addr_method: 'loopback'
+    ipv4: '{{ loopback }}/32'
+  notify: reload networking
+  when: loopback is defined
+
+- name: configure unnumbered interfaces
+  cl_interface:
+    name: '{{ item }}'
+    ipv4: '{{ loopback }}/32'
+  notify: reload networking
+  with_items: unnumbered
+  when: unnumbered is defined
+
+- name: configure vlan 10 svi and vrr
+  cl_interface:
+    name: "br0.10"
+    virtual_ip: "{{ addresses[ansible_hostname].vip }}"
+    virtual_mac: "{{ addresses[ansible_hostname].vmac }}"
+    ipv4: "{{ item }}"
+  with_items: svi
+  when: svi is defined
+
+- name: ifreload -a
+  command: "/sbin/ifreload -a"
+
+- name: configure quagga daemons file
+  template: src=quagga_daemons.j2 dest=/etc/quagga/daemons
+
+- name: configure quagga configuration
+  template: src=quagga_config.j2 dest=/etc/quagga/Quagga.conf
+  notify: restart quagga

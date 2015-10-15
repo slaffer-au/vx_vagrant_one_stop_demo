@@ -1,0 +1,28 @@
+- hosts: spine
+  user: vagrant
+  sudo: yes
+  tasks:
+    - name: clean up spines for from CLAG to unnumbered
+      file: path=/etc/network/interfaces.d/{{ item }} state=absent
+      with_items:
+        - bond1
+        - bond2
+        - bond3
+        - br0
+        - br0.10
+        - peerlink
+        - peerlink.4094
+    - name: reload networking
+      service: name=networking state=reloaded
+
+- hosts: leaf
+  user: vagrant
+  sudo: yes
+  tasks:
+    - name: clean up leaf switches for from CLAG to unnumbered
+      file: path=/etc/network/interfaces.d/{{ item }} state=absent
+      with_items:
+        - bond1
+    - name: reload networking
+      service: name=networking state=reloaded
+ 

@@ -1,0 +1,7 @@
+- hosts: servers
+  user: vagrant
+  sudo: yes
+  roles:
+    - anycast_host
+  vars_files:
+    - "{{ v_file }}"

@@ -1,0 +1,9 @@
+- hosts: leaf
+  user: vagrant
+  sudo: yes
+  roles:
+    - host_clag
+  vars_files:
+    - group_vars/all/main.yml
+  handlers:
+    - include : handlers/main.yml

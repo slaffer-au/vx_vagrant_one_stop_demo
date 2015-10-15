@@ -1,0 +1,88 @@
+ospf:
+  spine1:
+    int_unnumbered: ["swp1", "swp2", "swp3", "swp4", "swp5", "swp6"]
+  spine2:
+    int_unnumbered: ["swp1", "swp2", "swp3", "swp4", "swp5", "swp6"]
+  spine3:
+    int_unnumbered: ["swp1", "swp2", "swp3", "swp4", "swp5", "swp6"]
+  leaf1:
+    int_unnumbered: ["swp1", "swp2", "swp6"]
+    local_net: [ "br0.10"]
+  leaf2:
+    int_unnumbered: ["swp1", "swp2", "swp6"]
+    local_net: [ "br0.10"]
+  leaf3:
+    int_unnumbered: ["swp1", "swp2", "swp6"]
+    local_net: [ "br0.10"]
+  leaf4:
+    int_unnumbered: ["swp1", "swp2", "swp6"]
+    local_net: [ "br0.10"]
+  leaf5:
+    int_unnumbered: ["swp1", "swp2", "swp6"]
+    local_net: [ "br0.10"]
+  leaf6:
+    int_unnumbered: ["swp1", "swp2", "swp6"]
+    local_net: [ "br0.10"]
+
+
+addresses:
+  spine1:
+    loopback: "20.2.1.1"
+  spine2:
+    loopback: "20.2.1.2"
+  spine3:
+    loopback: "3.3.3.3"
+  leaf1:
+    svi: "10.1.12.1/24"
+    vip: "10.1.12.254"
+    vmac: "00:11:22:33:44:12"
+    loopback: "20.1.1.1"
+  leaf2:
+    svi: "10.1.12.2/24"
+    vip: "10.1.12.254"
+    vmac: "00:11:22:33:44:12"
+    loopback: "20.1.1.2"
+  leaf3:
+    svi: "10.1.34.3/24"
+    vip: "10.1.34.254"
+    vmac: "00:11:22:33:44:34"
+    loopback: "20.1.1.3"
+  leaf4:
+    svi: "10.1.34.4/24"
+    vip: "10.1.34.254"
+    vmac: "00:11:22:33:44:34"
+    loopback: "20.1.1.4"
+  leaf5:
+    svi: "10.1.56.5/24"
+    vip: "10.1.56.254"
+    vmac: "00:11:22:33:44:56"
+    loopback: "20.1.1.5"
+  leaf6:
+    svi: "10.1.56.6/24"
+    vip: "10.1.56.254"
+    vmac: "00:11:22:33:44:56"
+    loopback: "20.1.1.6"
+  host12:
+    vl1: "10.1.1.112"
+    vl10: "10.1.12.112"
+    gw: "10.1.12.254"
+  host34:
+    vl1: "10.1.1.134"
+    vl10: "10.1.34.134"
+    gw: "10.1.34.254"
+  host56:
+    vl1: "10.1.1.156"
+    vl10: "10.1.56.156"
+    gw: "10.1.56.254"
+    
+
+applications:
+  anycast_ip: "70.70.1.1/32"
+  advertise: 
+    leaf1:
+    leaf2:
+    leaf3:
+    leaf4:
+  servers:
+    host12:
+    host34:
