@@ -1,7 +1,6 @@
 # Cumulus VX - One Stop Demo
 ### _A two-tier, nine switch topology of Cumulus VX switches and three Ubuntu hosts with a range of topologies which can be deployed with Ansible automation._
 
-
 #### Prerequisites
   * Download the Cumulus VX file for Vagrant Box.
    * https://cumulusnetworks.com/cumulus-vx/download/
@@ -15,11 +14,16 @@
     * Once Ansible is installed, this is achieved with the command ```ansible-galaxy install cumulus.CumulusLinux```
     
 
-#### Network Diagram
+#### Raw Network Diagrams
+Some topologies only require 8 switches, such as the Two-Tier-CLAG. Other topologies can make use of a third spine, however this is usually an extended automation task.
+
+*8 Switch Topology:*
 ![Topology](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/Topology/raw-topology.png)
+*9 Switch Topology:*
 ![Topology-9s](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/Topology/raw-topology-9s.png)
 
-#### Instructions
+
+#### Setup Instructions
   1. Download and/or install all the above prerequisites.
   2. Add the Cumulus VX Vagrant Box file with the name "cumulus-vx-2.5.3"
    * This is achived with the following command in the directory where the box file is placed: 
@@ -28,3 +32,5 @@
   3. Enter the command "vagrant up" in the directory where the files were placed. This will create and provision the Cumulus VX instances.
   4. Once completed, connect to the CLI of the VX instances with "vagrant ssh ```hostname```"
 
+#### Ansible Automation
+All automation instuctions and examples are available in the [automation](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/tree/master/automation) directory.
