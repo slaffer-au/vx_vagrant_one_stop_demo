@@ -34,3 +34,13 @@ Some topologies only require 8 switches, such as the Two-Tier-CLAG. Other topolo
 
 #### Ansible Automation
 All automation instuctions and examples are available in the [automation](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/tree/master/automation) directory.
+
+##### Side note:
+Vagrant creates a NAT network with eth0 of all Cumulus VX and Ubuntu images, forwarding a localhost port to TCP port 22 of the guest for SSH access. While this works well for purely local SSH access, it inherently makes it hard to connect and develop with these devices as if they were actual remote network nodes.
+
+With that in mind, all Ansible automation has been built around having a local SSH alias for each VX, thus allowing "ssh vagrant@vm" access expected of real hosts. This is achieved through the Vagrant-to-Local script available at the following link.
+
+https://github.com/slaffer-au/vagrant-to-local
+
+
+
