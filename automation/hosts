@@ -14,7 +14,7 @@ leaf6
 [spine]
 spine1 
 spine2
-#spine3
+spine3
 
 [networking:children]
 spine

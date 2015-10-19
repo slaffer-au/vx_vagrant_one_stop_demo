@@ -258,7 +258,7 @@ Vagrant.configure(2) do |config|
 
 
   config.vm.define "host12" do |host12|
-	host12.vm.box = "hashicorp/precise32"
+	host12.vm.box = "ubuntu/trusty64"
 
     host12.vm.hostname = "host12"
     host12.vm.network "private_network", virtualbox__intnet: "host12l1", auto_config: false
@@ -278,7 +278,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "host34" do |host34|
-	host34.vm.box = "hashicorp/precise32"
+	host34.vm.box = "ubuntu/trusty64"
 
     host34.vm.hostname = "host34"
     host34.vm.network "private_network", virtualbox__intnet: "host34l3", auto_config: false
@@ -298,7 +298,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "host56" do |host56|
-	host56.vm.box = "hashicorp/precise32"
+	host56.vm.box = "ubuntu/trusty64"
 
     host56.vm.hostname = "host56"
     host56.vm.network "private_network", virtualbox__intnet: "host56l5", auto_config: false

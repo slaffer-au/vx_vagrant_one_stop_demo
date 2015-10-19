@@ -27,3 +27,11 @@
       #
       # If Mac
       authorized_key: user=vagrant key="{{ lookup('file', '/Users/slaffer/.ssh/id_rsa.pub') }}"    
+
+#    - name: install CumulusLinux-2.5 apt key
+#      copy: src=CumulusLinux-2.5.gpg dest=/home/vagrant/CumulusLinux-2.5.gpg
+#
+#    - name: Ensure Cumulus Linux apt-key is installed
+#      apt_key: file=/home/vagrant/CumulusLinux-2.5.gpg state=present
+#      sudo: yes
+

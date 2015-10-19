@@ -11,7 +11,7 @@
   user: vagrant
   sudo: yes
   roles:
-    - ospf_unnum
+    - ebgp_unnum
   vars_files:
     - group_vars/all/routing.yml
   handlers:

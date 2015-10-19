@@ -1,0 +1,7 @@
+- name: Installing Git from Debian
+  apt: name=git state=present
+  sudo: yes
+
+- name: Installing Python-PIP from Debian
+  apt: name=python-pip state=present
+  sudo: yes

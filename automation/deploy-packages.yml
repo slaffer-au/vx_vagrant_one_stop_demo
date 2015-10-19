@@ -1,0 +1,14 @@
+---
+- hosts: all
+  user: vagrant
+  roles:
+    - motd
+    - netshow_install 
+
+- hosts: spine
+  user: vagrant
+  roles:
+    - apt_sources
+    - apt_install
+    - bgp_net_gen
+

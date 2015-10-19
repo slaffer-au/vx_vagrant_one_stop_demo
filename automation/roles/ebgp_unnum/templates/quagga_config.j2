@@ -1,0 +1,56 @@
+{% set intvars = interfaces[ansible_hostname] -%}
+{% set addrvars = addresses[ansible_hostname] -%}
+
+{% set as = ebgp.asn[ansible_hostname] -%}
+
+{% set loopback = addrvars.loopback -%}
+{% set svi = addrvars.svi -%}
+
+{% set int_unnumbered = intvars.int_unnumbered -%}
+{% set local_net = intvars.local_net -%}
+
+{% set anycast = applications.advertise[ansible_hostname] -%}
+{% set anycast_ip = applications.anycast_ip -%}
+
+
+
+
+{% for item in int_unnumbered -%}
+interface {{ item }}
+  no ipv6 nd suppress-ra
+  ipv6 nd ra-interval 5
+!
+{% endfor -%}
+!
+!
+router-id {{ loopback }}
+!
+router bgp {{ as }}
+ bgp router-id {{ loopback }}
+ bgp log-neighbor-changes
+ {% if anycast is defined -%}
+ redistribute static route-map anycast_application
+ {% endif -%}
+ neighbor EBGP peer-group
+ {% for item in int_unnumbered -%}
+ neighbor {{ item }} interface
+ neighbor {{ item }} peer-group EBGP
+ neighbor {{ item }} capability extended-nexthop
+ {% endfor -%} 
+ neighbor EBGP remote-as external
+!
+ address-family ipv4 unicast
+ network {{ loopback }}/32
+ {% if svi is defined -%}
+ network {{ svi }}
+ {% endif -%}
+ maximum-paths 64
+!
+{% if anycast is defined -%}
+ip route {{ anycast_ip }} br0.10
+!
+ip prefix-list anycast_application seq 5 permit {{ anycast_ip }} 
+!
+route-map anycast_application permit 10
+ match ip address prefix-list anycast_application
+{% endif -%}

@@ -1,0 +1,6 @@
+- name: Adding Debian Repos
+  apt_repository: repo='{{ item }}' state=present
+  sudo: yes
+  with_items:
+    - 'deb http://security.debian.org/ wheezy/updates main'
+    - 'deb http://ftp.us.debian.org/debian/ wheezy main'

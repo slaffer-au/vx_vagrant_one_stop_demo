@@ -1,0 +1,9 @@
+- name: Getting Python modules for bgp_net_gen from PIP
+  pip: name=ipcalc
+  sudo: yes
+
+- name: Getting bgp_net_gen from GitHub/slaffer-au
+  git: repo=https://github.com/slaffer-au/network_generator.git
+       dest=/home/vagrant/slaffer/
+  sudo: yes
+
