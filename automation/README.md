@@ -11,7 +11,7 @@ With that in mind, all Ansible automation has been built around having a local S
 
 ##### Setting Up for Automation
 1. Download or git-clone the Vagrant-to-Local script into the directory with the Vagrantfile.
-2. Run the script with ```./v2l.py``` or ```python v2l```. A list of SSH aliases will be printed to the screen.
+2. Run the script with ```./v2l.py``` or ```python v2l.py```. A list of SSH aliases will be printed to the screen.
 3. Change to the automation directory
 4. Ensure all hosts are accessible by Ansible with the ad-hoc command ```ansible all -m ping -u vagrant```.
 
