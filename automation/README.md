@@ -67,7 +67,7 @@ This topology demonstrates a deployment of OSPF Unnumbered using Quagga, Cumulus
   * For security, hosts do not have routes to the "infrastructure" subnets by design. While traffic will reach the hosts from the unnumbered infrastucture, hosts will only respond to addresses in the ```10.0.0.0/8``` range.
   
 ##### Deployment:
-1. Run the Ansible playbook with the command ```ansible-playbook two-tier-clag.yml```.
+1. Run the Ansible playbook with the command ```ansible-playbook ospf-unnum.yml```.
 2. If a nine switch topology is desired, uncomment "spine3" from the hosts file and run the Ansible playbook again to provision spine3.
 
 ---  
