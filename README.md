@@ -28,9 +28,11 @@ Some topologies only require 8 switches, such as the Two-Tier-CLAG. Other topolo
   2. Add the Cumulus VX Vagrant Box file with the name "cumulus-vx-2.5.3"
    * This is achived with the following command in the directory where the box file is placed: 
     ``` vagrant box add CumulusVX-2.5.3-4eb681f3df86c478.box --name cumulus-vx-2.5.3 ```
-  2. Download or git-clone this repository.
-  3. Enter the command "vagrant up" in the directory where the files were placed. This will create and provision the Cumulus VX instances.
-  4. Once completed, connect to the CLI of the VX instances with "vagrant ssh ```hostname```"
+  3. Add the Ubuntu Trusty64 Vagrant box file. This add command downloads the box from the public Vagrant Box catalogue.
+   * ``` vagrant box add ubuntu/trusty64 ```
+  4. Download or git-clone this repository.
+  5. Enter the command "vagrant up" in the directory where the files were placed. This will create and provision the Cumulus VX instances.
+  6. Once completed, connect to the CLI of the VX instances with "vagrant ssh ```hostname```"
 
 #### Ansible Automation
 All automation instuctions and examples are available in the [automation](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/tree/master/automation) directory.
