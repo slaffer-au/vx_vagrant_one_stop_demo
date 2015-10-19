@@ -1,7 +1,5 @@
 ## Automated Topology Deployments Using Ansible
 
----
-
 #### Notes on the Automation:
 Vagrant creates a NAT network with eth0 of all Cumulus VX and Ubuntu boxes, forwarding a localhost TCP port to port 22 of the guest for SSH access. This is how the wrapper ```vagrant ssh <vm>``` works.
 
@@ -13,7 +11,7 @@ With that in mind, all Ansible automation has been built around having a local S
 
 ##### Setting Up for Automation
 1. Download or git-clone the Vagrant-to-Local script into the directory with the Vagrantfile.
-2. Run the script with ```./v2l.py``` or ```python v2l```. A list of SSH aliases will be printed to the screen.
+2. Run the script with ```./v2l.py``` or ```python v2l.py```. A list of SSH aliases will be printed to the screen.
 3. Change to the automation directory
 4. Ensure all hosts are accessible by Ansible with the ad-hoc command ```ansible all -m ping -u vagrant```.
 
