@@ -1,6 +1,21 @@
 # Cumulus VX - One Stop Demo
 ### _A two-tier, nine switch topology of Cumulus VX switches and three Ubuntu hosts with a range of topologies which can be deployed with Ansible automation._
 
+### Tools Used 
+
+##### Cumulus VX:
+Cumulus Linux is unleashing the power of Open Networking with a network operating system that runs on top of industry standard networking hardware. This demonstration utilises Cumulus VX, a community-supported virtual appliance that enables cloud admins and network engineers to preview and test Cumulus Networks technology at zero cost.
+
+##### VirtualBox:
+VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use. It is being used as the underlying hypervisor to virutalize Cumulus VX.
+
+##### Vagrant:
+Vagrant is a tool used to create and configure lightweight, reproducible, and portable development environments. _[In my own words]_ Instead of deploying a fully prepared virtual hard-drive file (```.ova```, ```.vmdk```, etc) which must be configured uniquely like most virtualization environments, Vagrant utilises a ```.box``` file. The ```.box``` file is more akin to a computer which has been imaged, but no user has logged in to create local customisations. A ```Vagrantfile``` is then used to define how these boxes are created, provisioned and networked together. Vagrant is used to deploy and network the Cumulus VX instances in the VirtualBox hypervisor.
+
+##### Ansible:
+Ansible is an IT automation tool. It can configure systems, deploy software, and orchestrate more advanced IT tasks such as continuous deployments or zero downtime rolling updates. Unlike other automation tools, Ansible requires no agent to be installed on the device being configured, instead simply using SSH. Ansible automation performs some basic provisioning tasks as part of the "vagrant up" and is later used to deploy the topologies.
+
+
 #### Prerequisites
   * Download the Cumulus VX file for Vagrant Box.
    * https://cumulusnetworks.com/cumulus-vx/download/
