@@ -63,7 +63,7 @@ This topology demonstrates a deployment of OSPF Unnumbered using Quagga, Cumulus
   * The Leaf to Host CLAG topology is retained, with CLAG ID 5 being configured to the hosts. Each Leaf switch maintains a VLAN-aware bridge, trunking VLANs 1-100 with a native VLAN of 1.
   * The hosts are configured with a VLAN 10 address unique to their attached Leaf pair as pictured.
   * Hosts host12 and host34 also have an address of `70.70.1.1` to emulate an anycast application. This host route is also advertised into OSPF by leaf1-4 by a filtered redistribution of static routes. 
-  * Host host56 maintains a static route to the this anycast prefix with a next-hop of its local VRR address. 
+  * Host host56 maintains a static route to this anycast prefix with a next-hop of its local VRR address. 
   * For security, hosts do not have routes to the "infrastructure" subnets by design. While traffic will reach the hosts from the unnumbered infrastucture, hosts will only respond to addresses in the ```10.0.0.0/8``` range.
   
 ##### Deployment:
