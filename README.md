@@ -27,6 +27,8 @@ Ansible is an IT automation tool. It can configure systems, deploy software, and
     * http://www.ansible.com/
   * The Cumulus Linux module for Ansible must be installed.
     * Once Ansible is installed, this is achieved with the command ```ansible-galaxy install cumulus.CumulusLinux```
+  * The Cumulux VX Vagrant Plugin must be installed.
+    * Once Vagrant is installed, this is achieved with the command ```vagrant plugin install vagrant-cumulus```
     
 
 #### Raw Network Diagrams
