@@ -2,6 +2,7 @@
 ### _A two-tier, nine switch topology of Cumulus VX switches and three Ubuntu hosts with a range of topologies which can be deployed with Ansible automation._
 
 ### Tools Used 
+This has been developed and tested on Mac OSX. All tools used are also available and used the same way on major Linux distributions. VirtualBox and Vagrant are available natively in Windows, however Ansible is not. There are [guides](https://servercheck.in/blog/running-ansible-within-windows) on how to get Ansible working on Windows using Cygwin, but this has not been tested. If possible, use OSX or Linux for this demo.
 
 ##### Cumulus VX:
 Cumulus Linux is unleashing the power of Open Networking with a network operating system that runs on top of industry standard networking hardware. This demonstration utilises Cumulus VX, a community-supported virtual appliance that enables cloud admins and network engineers to preview and test Cumulus Networks technology at zero cost.
@@ -23,7 +24,7 @@ Ansible is an IT automation tool. It can configure systems, deploy software, and
     * https://www.virtualbox.org/
   * Vagrant must be installed.
     * https://www.vagrantup.com/
-  * Ansible must be installed.
+  * Ansible must be installed using PIP or APT.
     * http://www.ansible.com/
   * The Cumulus Linux module for Ansible must be installed.
     * Once Ansible is installed, this is achieved with the command ```ansible-galaxy install cumulus.CumulusLinux```
