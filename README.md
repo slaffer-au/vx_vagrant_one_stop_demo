@@ -5,7 +5,7 @@
 This has been developed and tested on Mac OSX. All tools used are also available and used the same way on major Linux distributions. VirtualBox and Vagrant are available natively in Windows, however Ansible is not. There are [guides](https://servercheck.in/blog/running-ansible-within-windows) on how to get Ansible working on Windows using Cygwin, but this has not been tested. If possible, use OSX or Linux for this demo.
 
 ##### Cumulus VX:
-Cumulus Linux is unleashing the power of Open Networking with a network operating system that runs on top of industry standard networking hardware. This demonstration utilises Cumulus VX, a community-supported virtual appliance that enables cloud admins and network engineers to preview and test Cumulus Networks technology at zero cost.
+Cumulus Linux is unleashing the power of Open Networking with a network operating system that runs on top of industry standard networking hardware. This demonstration utilizes Cumulus VX, a community-supported virtual appliance that enables cloud admins and network engineers to preview and test Cumulus Networks technology at zero cost.
 
 ##### VirtualBox:
 VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use. It is being used as the underlying hypervisor to virutalize Cumulus VX.
