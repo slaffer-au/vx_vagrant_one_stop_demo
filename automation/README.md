@@ -3,17 +3,13 @@
 #### Notes on the Automation:
 Vagrant creates a NAT network with eth0 of all Cumulus VX and Ubuntu boxes, forwarding a localhost TCP port to port 22 of the guest for SSH access. This is how the wrapper ```vagrant ssh <vm>``` works.
 
-While this works well for purely local SSH access, it inherently makes it hard to connect and develop with these devices as if they were actual remote network nodes.
-
-With that in mind, all Ansible automation has been built around having a local SSH alias for each VX, thus allowing ```ssh vagrant@vm``` access expected of real hosts. This is achieved through the Vagrant-to-Local script available at the following link.
+While this works well for purely local SSH access, it inherently makes it hard to connect and develop with these devices as if they were actual remote network nodes. If you do want the ```ssh vagrant@vm``` style access expected of real hosts, consider using the Vagrant-to-Local script available at the following link. This is **not** required for this demo.
 
 * https://github.com/slaffer-au/vagrant-to-local
 
 ##### Setting Up for Automation
-1. Download or git-clone the Vagrant-to-Local script into the directory with the Vagrantfile.
-2. Run the script with ```./v2l.py``` or ```python v2l.py```. A list of SSH aliases will be printed to the screen.
-3. Change to the automation directory
-4. Ensure all hosts are accessible by Ansible with the ad-hoc command ```ansible all -m ping -u vagrant```.
+1. Change to the automation directory
+2. Ensure all hosts are accessible by Ansible with the ad-hoc command ```ansible all -m ping -u vagrant```.
 
 
 ---
@@ -39,7 +35,7 @@ This topology demonstrates a deployment of Cumulus Link Aggregation (CLAG) and C
   * The hosts are configured with a VLAN 10 address and an address in the native VLAN (not pictured).
   
 ##### Deployment:
-1. Ensure "spine3" is commented out in the hosts file.
+1. Ensure "spine3" is commented out in the ```hosts``` file.
 2. Run the Ansible playbook with the command ```ansible-playbook two-tier-clag.yml```.
 
 ---  
