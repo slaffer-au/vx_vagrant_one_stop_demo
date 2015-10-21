@@ -11,4 +11,5 @@
       # authorized_key: user=vagrant key="{{ lookup('file', '/home/slaffer/.ssh/id_rsa.pub') }}"
       
       # If Mac
-      authorized_key: user=vagrant key="{{ lookup('file', '/Users/slaffer/.ssh/id_rsa.pub') }}"
+      # authorized_key: user=vagrant key="{{ lookup('file', '/Users/slaffer/.ssh/id_rsa.pub') }}"
+      authorized_key: user=vagrant key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

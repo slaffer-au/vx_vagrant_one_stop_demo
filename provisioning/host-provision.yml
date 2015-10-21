@@ -23,10 +23,12 @@
 
     - name: push hypervisors public SSH key
       # If Linux
+      # authorized_key: user=vagrant key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
       # authorized_key: user=vagrant key="{{ lookup('file', '/home/slaffer/.ssh/id_rsa.pub') }}"
       #
       # If Mac
-      authorized_key: user=vagrant key="{{ lookup('file', '/Users/slaffer/.ssh/id_rsa.pub') }}"    
+      authorized_key: user=vagrant key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"    
+      # authorized_key: user=vagrant key="{{ lookup('file', '/Users/slaffer/.ssh/id_rsa.pub') }}"    
 
 #    - name: install CumulusLinux-2.5 apt key
 #      copy: src=CumulusLinux-2.5.gpg dest=/home/vagrant/CumulusLinux-2.5.gpg
