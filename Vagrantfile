@@ -1,4 +1,20 @@
 
+##################################
+#  Ansible Inventory Definitions #
+##################################
+      
+groups = {
+  "spine" => ["spine1", "spine2", "spine3"],
+  "leaf" => ["leaf1", "leaf2", "leaf3", "leaf4", "leaf5", "leaf6"],
+  "servers" => ["host12", "host34", "host56"],
+  "networking:children" => ["spine", "leaf"]
+}
+
+
+##################################
+#   Vagrant Machine Definitions  #
+##################################
+      
 Vagrant.configure(2) do |config|
   
   config.vm.define "spine1" do |spine1|
@@ -16,6 +32,7 @@ Vagrant.configure(2) do |config|
 
     spine1.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
     
     spine1.vm.provider "virtualbox" do |v|
@@ -46,6 +63,7 @@ Vagrant.configure(2) do |config|
 
     spine2.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
 
     spine2.vm.provider "virtualbox" do |v|
@@ -73,6 +91,7 @@ Vagrant.configure(2) do |config|
 
     spine3.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
     
     spine3.vm.provider "virtualbox" do |v|
@@ -100,6 +119,7 @@ Vagrant.configure(2) do |config|
     
     leaf1.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
 
     leaf1.vm.provider "virtualbox" do |v|
@@ -128,6 +148,7 @@ Vagrant.configure(2) do |config|
     
     leaf2.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
 
     leaf2.vm.provider "virtualbox" do |v|
@@ -157,6 +178,7 @@ Vagrant.configure(2) do |config|
 
     leaf3.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
 
     leaf3.vm.provider "virtualbox" do |v|
@@ -185,6 +207,7 @@ Vagrant.configure(2) do |config|
   
     leaf4.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
 
     leaf4.vm.provider "virtualbox" do |v|
@@ -213,6 +236,7 @@ Vagrant.configure(2) do |config|
 
     leaf5.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
 
     leaf5.vm.provider "virtualbox" do |v|
@@ -241,6 +265,7 @@ Vagrant.configure(2) do |config|
 
     leaf6.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/playbook.yml"
+      ansible.groups = groups
     end
 
     leaf6.vm.provider "virtualbox" do |v|
@@ -273,6 +298,7 @@ Vagrant.configure(2) do |config|
 
     host12.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/host-provision.yml"
+      ansible.groups = groups
     end
 
   end
@@ -293,6 +319,7 @@ Vagrant.configure(2) do |config|
 
     host34.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/host-provision.yml"
+      ansible.groups = groups
     end
 
   end
@@ -313,7 +340,7 @@ Vagrant.configure(2) do |config|
 
     host56.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/host-provision.yml"
+      ansible.groups = groups
     end
   end
-
 end
