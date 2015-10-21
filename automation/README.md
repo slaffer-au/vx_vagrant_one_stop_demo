@@ -67,3 +67,34 @@ This topology demonstrates a deployment of OSPF Unnumbered using Quagga, Cumulus
 2. If a nine switch topology is desired, uncomment "spine3" from the hosts file and run the Ansible playbook again to provision spine3.
 
 ---  
+
+#### BGP Unnumbered:
+*eBGP Topology:*
+![Topology](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/Topology/ebgp-unnum-topology-9s.png)
+*iBGP Topology:*
+![Topology](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/Topology/ibgp-unnum-topology-9s.png)
+
+##### Description:
+Like the OSPF example above, BGP unnumbered is also supported in the Cumulus Linux distribution of the Quagga routing suite.
+
+This topology demonstrates a deployment of both eBGP and iBGP Unnumbered using Quagga, Cumulus Link Aggregation (CLAG) and Cumulus Virtual Router Redundancy (VRR).
+  * http://docs.cumulusnetworks.com/display/DOCS/Configuring+Border+Gateway+Protocol+-+BGP
+  * http://docs.cumulusnetworks.com/display/DOCS/Multi-Chassis+Link+Aggregation+-+MLAG
+  * http://docs.cumulusnetworks.com/display/DOCS/Virtual+Router+Redundancy+-+VRR
+
+##### Details:
+  * All hosts are assigned a loopback address. The same address is also assigned to the unnumbered interfaces between Leaf and Spine.
+  * BGP is configured on all unnumbered interfaces, rather than with an IPv4 neighbor statement.
+  * The BGP peer-group is configured with extended next-hop encoding and ```remote-as external``` or ```remote-as internal``` based on the demo.
+  * All hosts advertise their loopbacks into BGP. All Leaf switches advertise their locally connected VLAN 10 subnet as pictured. SVIs and VRR is configured on VLAN 10 on all Leaf switches.
+  * The Leaf to Host CLAG topology is retained, with CLAG ID 5 being configured to the hosts. Each Leaf switch maintains a VLAN-aware bridge, trunking VLANs 1-100 with a native VLAN of 1.
+  * The hosts are configured with a VLAN 10 address unique to their attached Leaf pair as pictured.
+  * Hosts host12 and host34 also have an address of `70.70.1.1` to emulate an anycast application. This host route is also advertised into BGP by leaf1-4 by a filtered redistribution of static routes. 
+  * Host host56 maintains a static route to this anycast prefix with a next-hop of its local VRR address. 
+  * For security, hosts do not have routes to the "infrastructure" subnets by design. While traffic will reach the hosts from the unnumbered infrastucture, hosts will only respond to addresses in the ```10.0.0.0/8``` range.
+  
+##### Deployment:
+1. Run the Ansible playbook with the command ```ansible-playbook ebgp-unnum.yml``` or ```ansible-playbook ibgp-unnum.yml```.
+2. If a nine switch topology is desired, uncomment "spine3" from the hosts file and run the Ansible playbook again to provision spine3.
+
+---  
