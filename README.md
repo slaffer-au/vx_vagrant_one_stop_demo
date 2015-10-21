@@ -3,7 +3,7 @@
 
 
 #### Prerequisites
-The following tools are required to run this demo. Details about how each of the tools are being used can be found at the bottom of this page.
+The following tools are required to run this demo. Details about how each of the tools are being used can be found [here](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/README.md#details-about-tools-used).
   * Download the Cumulus VX file for Vagrant Box.
    * https://cumulusnetworks.com/cumulus-vx/download/
   * VirtualBox must be installed.
