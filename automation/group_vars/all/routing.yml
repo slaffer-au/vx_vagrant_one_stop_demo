@@ -79,8 +79,8 @@ addresses:
 ebgp:
   asn:
     spine1: "65001"
-    spine2: "65002"
-    spine3: "65003"
+    spine2: "65001"
+    spine3: "65001"
     leaf1: "65011"
     leaf2: "65012"
     leaf3: "65013"
