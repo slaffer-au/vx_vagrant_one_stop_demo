@@ -6,7 +6,7 @@
   cl_bridge:
     name: "br-{{ item.value.hosts[ansible_hostname].vlan_id }}"
     vlan_aware: no
-    ports: "{{ item.value.hosts[ansible_hostname].members }}.{{ item.value.hosts[ansible_hostname].vlan_id }} {{ item.key }}"
+    ports: "{{ item.value.hosts[ansible_hostname].members }}.{{ item.value.hosts[ansible_hostname].vlan_id }} peerlink.{{ item.value.hosts[ansible_hostname].vlan_id }}  {{ item.key }}"
   with_dict: vnis
   when: item.value.hosts[ansible_hostname] is defined
   sudo: yes

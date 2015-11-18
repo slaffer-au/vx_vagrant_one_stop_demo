@@ -6,20 +6,7 @@
 
 - name: restart vxsnd
   shell: "service vxsnd restart"
-  register: vxsnd_restart
-  notify: print vxsnd restart error
-  changed_when: "vxsnd_restart.stderr != ''"
-  
-- name: print vxsnd restart error
-  debug: msg="{{vxsnd_restart.stderr}}"
-  failed_when: "vxsnd_restart.stderr is defined" 
   
 - name: restart vxrd
   shell: "service vxrd restart"
-  register: vxrd_restart
-  notify: print vxrd restart error
-  changed_when: "vxrd_restart.stderr != ''"
   
-- name: print vxrd restart error
-  debug: msg="{{vxrd_restart.stderr}}"
-  failed_when: "vxrd_restart.stderr is defined" 
