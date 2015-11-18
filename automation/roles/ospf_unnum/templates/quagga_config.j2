@@ -1,4 +1,4 @@
-{% set intvars = ospf[ansible_hostname] -%}
+{% set intvars = interfaces[ansible_hostname] -%}
 {% set addrvars = addresses[ansible_hostname] -%}
 {% set loopback = addrvars.loopback -%}
 {% set int_unnumbered = intvars.int_unnumbered -%}

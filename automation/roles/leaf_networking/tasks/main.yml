@@ -20,7 +20,7 @@
     vlan_aware: yes
     ports: "{{ item.members }}"
     stp: true
-    vids: "1-100"
+    vids: "1-10"
     pvid: "1"
   with_items: bridges
   when: bridges is defined
@@ -55,6 +55,7 @@
     clagd_sys_mac: "{{ addresses[ansible_hostname].clag_mac }}"
     clagd_peer_ip: "{{ addresses[ansible_hostname].clag_peer }}"
     clagd_args: " --vm"
+
 
 - name: Add source /etc/network/interfaces.d/*
   lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*'

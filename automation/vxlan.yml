@@ -1,0 +1,10 @@
+---
+- hosts: leaf
+  user: vagrant
+  sudo: yes
+  roles:
+    - vxlan-vni
+  vars_files:
+    - group_vars/all/vxlan.yml
+  handlers:
+    - include : handlers/main.yml
