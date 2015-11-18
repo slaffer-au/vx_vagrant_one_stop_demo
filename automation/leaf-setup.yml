@@ -2,8 +2,8 @@
   user: vagrant
   sudo: yes
   roles:
-    - host_clag
+    - leaf_networking
   vars_files:
-    - group_vars/all/main.yml
+    - "{{ v_file }}"
   handlers:
     - include : handlers/main.yml

@@ -106,3 +106,13 @@ applications:
   servers:
     host12:
     host34:
+
+
+vxlan:
+  vxsnd:
+    hosts:
+      spine1:
+      spine2:
+      spine3:
+    address: 10.254.254.254
+
