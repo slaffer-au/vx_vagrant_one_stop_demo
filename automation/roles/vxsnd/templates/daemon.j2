@@ -1,0 +1,14 @@
+Configured by Ansible at {{ansible_date_time.time}} on {{ansible_date_time.date}}
+
+# vxsnd - Lightweight Network Virt Discovery Svc & Replicator
+#
+# This is an template for the daemon configuration file for vxsnd. This
+# file, when present in /etc/default/vxsnd, is read when the vxsnd service
+# is started or stopped.
+#
+# IMPORTANT: In its default state after installation, vxsnd will not run.
+
+# Master control of the vxsnd deamon. Set to 'yes' for vxsnd to start.
+# Default is 'no'
+#
+START=yes

@@ -19,8 +19,15 @@
   sudo: yes
 
 - name: update vni interfaces with vni id
-  lineinfile: dest=/etc/network/interfaces.d/"{{ item.key }}" line="  vxlan-id {{ item.key }}"
+  lineinfile: dest=/etc/network/interfaces.d/"{{ item.key }}" line="  vxlan-id {{ item.value.vnid }}"
   with_dict: vnis
+  when: item.value.hosts[ansible_hostname] is defined
+  sudo: yes
+
+- name: update vni interfaces with local vtep address
+  lineinfile: dest=/etc/network/interfaces.d/"{{ item.key }}" line="  vxlan-local-tunnelip {{ ansible_lo.ipv4_secondaries.0.address }}"
+  with_dict: vnis
+  when: item.value.hosts[ansible_hostname] is defined
   sudo: yes
 
 - name: Add source /etc/network/interfaces.d/*

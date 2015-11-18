@@ -1,0 +1,7 @@
+- name: configure LNV service node daemon
+  template: src=daemon.j2 dest=/etc/default/vxsnd
+  
+- name: configure LNV service node configuration
+  template: src=vxsnd.j2 dest=/etc/vxsnd.conf
+  notify: restart vxsnd  
+  sudo: yes

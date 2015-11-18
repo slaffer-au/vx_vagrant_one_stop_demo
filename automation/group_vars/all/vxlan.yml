@@ -7,12 +7,15 @@ vxlan:
     anycast: 10.254.254.254
   vxrd:
     aa_vtep:
-      leaf1: 30.1.1.1
-      leaf2: 30.1.1.1
-      leaf3: 30.1.1.2
-      leaf4: 30.1.1.2
+      leaf1: 30.1.1.12
+      leaf2: 30.1.1.12
+      leaf3: 30.1.1.34
+      leaf4: 30.1.1.34
+      leaf5: 30.1.1.56
+      leaf6: 30.1.1.56
   vni:
     vni_20:
+      vnid: 20
       hosts:
         leaf1: 
           vlan_id: 20
@@ -33,6 +36,7 @@ vxlan:
           vlan_id: 20
           members: "host_clag"
     vni_3000:
+      vnid: 3000
       hosts:
         leaf1: 
           vlan_id: 30 
@@ -47,6 +51,7 @@ vxlan:
           vlan_id: 30
           members: "host_clag"
     vni_400:
+      vnid: 400
       hosts:
         leaf1: 
           vlan_id: 40
