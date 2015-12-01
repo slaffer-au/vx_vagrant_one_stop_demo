@@ -3,8 +3,8 @@
   user: vagrant
   sudo: yes
   roles:
-    - vxrd
     - vxlan-vni
+    - vxrd
   vars_files:
     - group_vars/all/vxlan.yml
   handlers:

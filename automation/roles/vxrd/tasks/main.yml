@@ -15,4 +15,11 @@
   sudo: yes
   notify: restart vxrd 
 
+- name: stop clagd to workaround the anycast issue
+  service: name=clagd state=stopped
+  sudo: yes
 
+- name: manually restart clagd with vxlan fields
+  command: "{{ item }}"
+  with_items:
+    - "{{ clag[ansible_hostname] }}"
