@@ -10,6 +10,24 @@
   when: vxlan.vxrd.aa_vtep[ansible_hostname] is defined
   sudo: yes
 
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - sudo cl-ospf interface set lo passive
+    - sudo cl-ospf interface set lo area 0.0.0.0
+    - cl-ospf network add {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}/32 area 0.0.0.0
+  when:  vxlan.vxsnd.routing_protocol.ospf
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - cl-bgp network add {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}/32
+    - cl-bgp allowas-in set neighbor EBGP
+  when:  vxlan.vxsnd.routing_protocol.bgp
+
+- name: Save configuration to file
+  command: sudo cl-rctl write-config
+
 - name: turn on LNV registration node daemon
   template: src=daemon.j2 dest=/etc/default/vxrd
   sudo: yes
@@ -19,7 +37,3 @@
   service: name=clagd state=stopped
   sudo: yes
 
-- name: manually restart clagd with vxlan fields
-  command: "{{ item }}"
-  with_items:
-    - "{{ clag[ansible_hostname] }}"

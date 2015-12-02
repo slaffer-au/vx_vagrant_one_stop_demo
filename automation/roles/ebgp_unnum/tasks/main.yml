@@ -7,7 +7,7 @@
   when: addresses[ansible_hostname].svi is defined
 
 - name: Add source /etc/network/interfaces.d/*
-  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*'
+  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*' insertbefore=BOF
   sudo: yes
 
 - name: configure loopback interface
