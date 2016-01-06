@@ -1,5 +1,5 @@
 - name: update loopback interfaces with vxsnd anycast address
-  lineinfile: dest=/etc/network/interfaces.d/lo line="address {{ vxlan.vxsnd.anycast }}"
+  lineinfile: dest=/etc/network/interfaces.d/lo line="address {{ vxlan.vxsnd.anycast }}/32"
   sudo: yes
   
 - name: Add loopback interface so those routes get announced
