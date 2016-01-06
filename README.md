@@ -4,7 +4,7 @@
 
 #### Prerequisites
 The following tools are required to run this demo. Details about how each of the tools are being used can be found [here](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/README.md#details-about-tools-used).
-  * Download the Cumulus VX file for Vagrant Box.
+  * Download the Cumulus VX version 2.5.5 file for Vagrant Box.
    * https://cumulusnetworks.com/cumulus-vx/download/
   * VirtualBox must be installed.
     * https://www.virtualbox.org/
@@ -17,7 +17,11 @@ The following tools are required to run this demo. Details about how each of the
   * The Cumulux VX Vagrant Plugin must be installed.
     * Once Vagrant is installed, this is achieved with the command ```vagrant plugin install vagrant-cumulus```
     
-
+#### What's New
+  * Upgraded Cumulus VX from version 2.5.3 to 2.5.5.
+  * Added Ansible playbooks to deploy VxLAN using LNV, including VxLAN Anycast VTEPS (active/active forwarding with MLAG).
+  * Minor fixes and improvements to Ansible automation. 
+  
 #### Raw Network Diagram
 Some topologies only require 8 switches, such as the Two-Tier-CLAG. Other topologies can make use of a third spine, however this is usually an extended automation task.
 
@@ -27,9 +31,9 @@ Some topologies only require 8 switches, such as the Two-Tier-CLAG. Other topolo
 
 #### Setup Instructions
   1. Download and/or install all the above prerequisites.
-  2. Add the Cumulus VX Vagrant Box file with the name "cumulus-vx-2.5.3"
+  2. Add the Cumulus VX Vagrant Box file with the name "cumulus-vx-2.5.5"
    * This is achived with the following command in the directory where the box file is placed: 
-    ``` vagrant box add CumulusVX-2.5.3-4eb681f3df86c478.box --name cumulus-vx-2.5.3 ```
+    ``` vagrant box add CumulusVX-2.5.5-cc665123486ac43d.box --name cumulus-vx-2.5.5 ```
   3. Add the Ubuntu Trusty64 Vagrant box file. This add command downloads the box from the public Vagrant Box catalogue.
    * ``` vagrant box add ubuntu/trusty64 ```
   4. If you use git, clone this repo with the command ```git clone https://github.com/slaffer-au/vx_vagrant_one_stop_demo.git```. Otherwise, download the archive [here](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/archive/master.zip).
