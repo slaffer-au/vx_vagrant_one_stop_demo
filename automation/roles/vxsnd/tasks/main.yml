@@ -14,8 +14,15 @@
   command: "{{ item }}"
   with_items:
     - cl-bgp network add {{ vxlan.vxsnd.anycast }}/32 
+    # Required for unicast distribution of fdb information to vxsnd nodes
     - cl-bgp allowas-in set neighbor EBGP
-  when:  vxlan.vxsnd.routing_protocol.bgp
+  when:  vxlan.vxsnd.routing_protocol.ebgp
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - cl-bgp network add {{ vxlan.vxsnd.anycast }}/32 
+  when:  vxlan.vxsnd.routing_protocol.ibgp
 
 - name: Save configuration to file
   command: sudo cl-rctl write-config

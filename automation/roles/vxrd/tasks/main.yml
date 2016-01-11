@@ -22,8 +22,18 @@
   command: "{{ item }}"
   with_items:
     - cl-bgp network add {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}/32
-    - cl-bgp allowas-in set neighbor EBGP
-  when:  vxlan.vxsnd.routing_protocol.bgp
+    # Not required on leaves as each switch has it's own AS
+    # - cl-bgp allowas-in set neighbor EBGP
+  when:  vxlan.vxsnd.routing_protocol.ebgp
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - cl-bgp network add {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}/32
+    # Need to reflect spines unicast addresses for vxsnd state distribution
+    - cl-bgp route-reflector-client set neighbor IBGP
+    - cl-bgp next-hop-self set neighbor IBGP
+  when:  vxlan.vxsnd.routing_protocol.ibgp
 
 - name: Save configuration to file
   command: sudo cl-rctl write-config

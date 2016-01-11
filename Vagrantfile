@@ -36,6 +36,7 @@ Vagrant.configure(2) do |config|
     end
     
     spine1.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111111"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -67,6 +68,7 @@ Vagrant.configure(2) do |config|
     end
 
     spine2.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111112"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -95,6 +97,7 @@ Vagrant.configure(2) do |config|
     end
     
     spine3.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111113"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -123,6 +126,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf1.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111121"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -152,6 +156,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf2.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111122"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -182,6 +187,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf3.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111123"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -211,6 +217,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf4.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111124"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -240,6 +247,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf5.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111125"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -269,6 +277,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf6.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111126"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]

@@ -6,8 +6,9 @@ vxlan:
       spine3:
     anycast: 100.254.254.254
     routing_protocol:
-      bgp: True
-      ospf: False 
+      ebgp: False 
+      ibgp: True
+      ospf: False
   vxrd:
     aa_vtep:
       leaf1: 30.1.1.12
