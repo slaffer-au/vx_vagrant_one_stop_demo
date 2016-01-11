@@ -98,3 +98,78 @@ This topology demonstrates a deployment of both eBGP and iBGP Unnumbered using Q
 2. If a nine switch topology is desired, uncomment "spine3" from the hosts file and run the Ansible playbook again to provision spine3.
 
 ---  
+
+#### VxLAN with LNV:
+*VxLAN Topology:*
+![Topology](https://github.com/slaffer-au/vx_vagrant_one_stop_demo/blob/master/Topology/vxlan-topology-9s.png)
+
+##### Description:
+_This topology is designed to be deployed after the OSPF or BGP examples above as it relies on a routed IP fabric._
+
+The biggest trend in Data Center networking right now is towards virtual network overlay technologies such as VxLAN. VxLAN is an open standard MAC-in-UDP encapsulation technology which allows a Layer 2 broadcast domain to extend over a Layer 3 infrastructure. By encapsultaing in IP and leveraging Equal Cost Multi-Path (ECMP), VxLAN enables a highly fault tolerant, full bandwidth physical network for the overlayed, Layer 2 Virtual Network (VNI), signified with its own Virtual Network Identifier (VNID).
+
+In this topology, the leaf switches are acting as the termination points of the VxLAN tunnels (known as a VxLAN Tunnel End Point or VTEP), thus becoming the gateway between the traditional Layer 2 and the VxLAN networks. As the switches are running CLAG, VxLAN Active-Active mode allows a pair of MLAG switches to act as a single VTEP, providing active-active VxLAN termination.
+
+Also deployed in this topology is Lightweight Network Virtualization (LNV), a technique for deploying VNIs on switches without a centralised controller. LNV includes simple VxLAN service and registration daemons which run on Cumulus Linux itself, allowing easy distribution of VNI information to VTEPs.
+
+This topology demonstrates a deployment of VxLAN using Lightweight Network Virtualization, including a distributed anycast service node, and VxLAN Active-Active mode in conjunction with CLAG. VNIs are deployed using the traditional bridging driver.
+
+  * https://docs.cumulusnetworks.com/display/DOCS/Network+Virtualization
+  * https://docs.cumulusnetworks.com/display/DOCS/Lightweight+Network+Virtualization+-+LNV
+  * https://docs.cumulusnetworks.com/display/DOCS/VXLAN+Active-Active+Mode
+  * http://docs.cumulusnetworks.com/display/DOCS/Multi-Chassis+Link+Aggregation+-+MLAG
+
+
+##### Details:
+  * A routed IP fabric has been deployed previously through one of the above demonstrations.
+  * Each switch uses its loopback address as the VTEP address for single-attached orphan connections.
+  * A shared address is deployed on the loopback of each leaf switch pair. This is used as the Active-Active mode VTEP address for all dual-connected hosts.
+  * VNI interfaces are deployed on the leaf switches as required. ```VNI 20``` and ```VNI 400``` are deployed on all leaf switches, while ```VNI 3000``` is deployed on leaf1-2 and leaf5-6 only.
+  * Traditional bridges are deployed on the leaf switches. 
+   * The VNI interface and any local interfaces are configured as bridge member ports, providing the translation from VxLAN to VLAN.
+   * Importantly, this is locally significant to the port, meaning that the VNI 400 broadcast domain is ```VLAN 40``` on leaf1-2, ```VLAN 80``` on leaf3-4 and ```VLAN 48``` on leaf5-6. 
+   * Below is an extract from the Ansible automation variables used in the deployment. 
+``` 
+    vni_400:
+      vnid: 400
+      hosts:
+        leaf1:
+          vlan_id: 40
+          members: "host_clag"
+        leaf2:
+          vlan_id: 40
+          members: "host_clag"
+        leaf3:
+          vlan_id: 80
+          members: "host_clag"
+        leaf4:
+          vlan_id: 80
+          members: "host_clag"
+        leaf5:
+          vlan_id: 48
+          members: "host_clag"
+        leaf6:
+          vlan_id: 48
+          members: "host_clag"
+```
+  * The VxLAN Registration Daemon (```vxrd```) is deployed and started on the leaf switches, with the service node address set to the anycast address of ```100.254.254.254```.
+  * The service node anycast address is added to the loopback of the spine switches.
+  * The service node anycast address is advertised into the routing protocol of choice by the spines.
+  * The leaf active-active addresses are advertised into the routing protocol of choice by the leaf switches.
+  * Additionally based on the routing protocol, to facilitate ```vxsnd``` fdb distribution between the spines:
+   * eBGP: On the spines, the ```allowas-in``` parameter is set for the peer-group.
+   * iBGP: On the leaf switches, they are configured ```route-reflector-client``` and ```next-hop-self``` for the peer-group.
+  * The VxLAN Service Node Daemon (```vxsnd```) is deployed and started on the spine switches and bound to the anycast address.
+  
+
+##### Deployment:
+1. Ensure one of the above routing topologies has been deployed successfully.
+2. Edit the routing_protocol section of the file ```group_vars/all/vxlan.yml``` to reflect which protocol is in use. The example below deploys VxLAN on an eBGP fabric.
+```
+ 8     routing_protocol:
+ 9        ebgp: True
+ 10       ibgp: False
+ 11       ospf: False
+```
+3. Run the Ansible playbook with the command ```ansible-playbook vxlan.yml```.
+2. If a nine switch topology is desired, uncomment "spine3" from the hosts file and run the Ansible playbook again to provision spine3.
