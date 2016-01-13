@@ -1,5 +1,5 @@
 - set_fact:
-    unnumbered: "{{ ospf[ansible_hostname].int_unnumbered }}"
+    unnumbered: "{{ interfaces[ansible_hostname].int_unnumbered }}"
 - set_fact:
     loopback: "{{ addresses[ansible_hostname].loopback }}"
 - set_fact:
@@ -7,7 +7,7 @@
   when: addresses[ansible_hostname].svi is defined
 
 - name: Add source /etc/network/interfaces.d/*
-  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*'
+  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*' insertbefore=BOF
   sudo: yes
 
 - name: configure loopback interface

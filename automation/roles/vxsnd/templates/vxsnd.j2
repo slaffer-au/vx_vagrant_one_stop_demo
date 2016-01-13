@@ -1,0 +1,16 @@
+#Configured by Ansible at {{ansible_date_time.time}} on {{ansible_date_time.date}}
+
+[common]
+# This is the address to which registration daemons send control messages for
+# registration and/or BUM packets for replication
+svcnode_ip = {{ vxlan.vxsnd.anycast }}
+
+# Local IP address to bind to for receiving inter-vxsnd control traffic
+src_ip = {{ ansible_lo.ipv4_secondaries.0.address }}
+
+[vxsnd]
+# Space separated list of IP addresses of vxsnd to share state with
+svcnode_peers = {% for host in groups['spine'] %}
+   {{ hostvars[host]['ansible_swp1']['ipv4']['address'] }}
+{% endfor %}
+#ALL OTHER VALUES ARE DEFAULT AND REMOVED, please reference documentation for LNV

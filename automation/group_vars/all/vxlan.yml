@@ -1,0 +1,78 @@
+vxlan:
+  vxsnd:
+    hosts:
+      spine1:
+      spine2:
+      spine3:
+    anycast: 100.254.254.254
+    routing_protocol:
+      ebgp: True 
+      ibgp: False
+      ospf: False
+  vxrd:
+    aa_vtep:
+      leaf1: 30.1.1.12
+      leaf2: 30.1.1.12
+      leaf3: 30.1.1.34
+      leaf4: 30.1.1.34
+      leaf5: 30.1.1.56
+      leaf6: 30.1.1.56
+  vni:
+    vni_20:
+      vnid: 20
+      hosts:
+        leaf1: 
+          vlan_id: 20
+          members: "host_clag"
+        leaf2: 
+          vlan_id: 20
+          members: "host_clag"
+        leaf3:
+          vlan_id: 200
+          members: "host_clag"
+        leaf4:
+          vlan_id: 200
+          members: "host_clag"
+        leaf5:
+          vlan_id: 20
+          members: "host_clag"
+        leaf6:
+          vlan_id: 20
+          members: "host_clag"
+    vni_3000:
+      vnid: 3000
+      hosts:
+        leaf1: 
+          vlan_id: 30 
+          members: "host_clag"
+        leaf2: 
+          vlan_id: 30
+          members: "host_clag"
+        leaf5:
+          vlan_id: 30
+          members: "host_clag"
+        leaf6:
+          vlan_id: 30
+          members: "host_clag"
+    vni_400:
+      vnid: 400
+      hosts:
+        leaf1: 
+          vlan_id: 40
+          members: "host_clag"
+        leaf2: 
+          vlan_id: 40
+          members: "host_clag"
+        leaf3: 
+          vlan_id: 80
+          members: "host_clag"
+        leaf4: 
+          vlan_id: 80
+          members: "host_clag"
+        leaf5: 
+          vlan_id: 48
+          members: "host_clag"
+        leaf6: 
+          vlan_id: 48
+          members: "host_clag"
+

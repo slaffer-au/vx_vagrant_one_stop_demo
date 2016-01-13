@@ -50,7 +50,7 @@
     clagd_args: " --vm"
 
 - name: Add source /etc/network/interfaces.d/*
-  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*'
+  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*' insertbefore=BOF
   sudo: yes
 
 - name: Restart networking

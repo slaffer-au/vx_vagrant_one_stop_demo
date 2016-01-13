@@ -1,0 +1,39 @@
+- set_fact:
+    vnis: "{{ vxlan.vni }}"
+  when: vxlan.vni
+
+- name: configure traditional bridges
+  cl_bridge:
+    name: "br-{{ item.value.hosts[ansible_hostname].vlan_id }}"
+    vlan_aware: no
+    ports: "{{ item.value.hosts[ansible_hostname].members }}.{{ item.value.hosts[ansible_hostname].vlan_id }} peerlink.{{ item.value.hosts[ansible_hostname].vlan_id }}  {{ item.key }}"
+  with_dict: vnis
+  when: item.value.hosts[ansible_hostname] is defined
+  sudo: yes
+
+- name: configure vni interfaces
+  cl_interface:
+    name: "{{ item.key }}"
+  with_dict: vnis
+  when: item.value.hosts[ansible_hostname] is defined
+  sudo: yes
+
+- name: update vni interfaces with vni id
+  lineinfile: dest=/etc/network/interfaces.d/"{{ item.key }}" line="  vxlan-id {{ item.value.vnid }}"
+  with_dict: vnis
+  when: item.value.hosts[ansible_hostname] is defined
+  sudo: yes
+
+- name: update vni interfaces with local vtep address
+  lineinfile: dest=/etc/network/interfaces.d/"{{ item.key }}" line="  vxlan-local-tunnelip {{ ansible_lo.ipv4_secondaries.0.address }}"
+  with_dict: vnis
+  when: item.value.hosts[ansible_hostname] is defined
+  sudo: yes
+
+- name: Add source /etc/network/interfaces.d/*
+  lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*' insertbefore=BOF
+  sudo: yes
+
+- name: Restart networking
+  service: name=networking state=restarted
+  sudo: yes

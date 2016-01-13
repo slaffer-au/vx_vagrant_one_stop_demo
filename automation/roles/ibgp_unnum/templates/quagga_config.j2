@@ -38,7 +38,7 @@ router bgp {{ as }}
  neighbor {{ item }} peer-group IBGP
  neighbor {{ item }} capability extended-nexthop
  {% endfor -%} 
- neighbor IBGP remote-as {{ as }}
+ neighbor IBGP remote-as internal
  {% if rr_client is defined -%}
  neighbor IBGP route-reflector-client
  neighbor IBGP next-hop-self force

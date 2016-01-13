@@ -1,0 +1,41 @@
+- name: update loopback interfaces with vxsnd anycast address
+  lineinfile: dest=/etc/network/interfaces.d/lo line="address {{ vxlan.vxsnd.anycast }}/32"
+  sudo: yes
+  
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - sudo cl-ospf interface set lo passive
+    - sudo cl-ospf interface set lo area 0.0.0.0
+    - cl-ospf network add {{ vxlan.vxsnd.anycast }}/32 area 0.0.0.0
+  when:  vxlan.vxsnd.routing_protocol.ospf
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - cl-bgp network add {{ vxlan.vxsnd.anycast }}/32 
+    # Required for unicast distribution of fdb information to vxsnd nodes
+    - cl-bgp allowas-in set neighbor EBGP
+  when:  vxlan.vxsnd.routing_protocol.ebgp
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - cl-bgp network add {{ vxlan.vxsnd.anycast }}/32 
+  when:  vxlan.vxsnd.routing_protocol.ibgp
+
+- name: Save configuration to file
+  command: sudo cl-rctl write-config
+
+- name: configure LNV service node daemon
+  template: src=daemon.j2 dest=/etc/default/vxsnd
+  sudo: yes
+  
+- name: configure LNV service node configuration
+  template: src=vxsnd.j2 dest=/etc/vxsnd.conf
+  notify: restart vxsnd  
+  sudo: yes
+
+- name: ifup the loopback address
+  command: "sudo ifup lo"
+  notify: reload networking

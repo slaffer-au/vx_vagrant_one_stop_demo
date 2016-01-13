@@ -1,0 +1,49 @@
+- name: update loopback interfaces with lnv information
+  lineinfile: dest=/etc/network/interfaces.d/lo line="{{ item }}"
+  with_items:
+    - "vxrd-src-ip {{ ansible_lo.ipv4_secondaries.0.address }}"
+    - "vxrd-svcnode-ip {{ vxlan.vxsnd.anycast }}"
+  sudo: yes
+
+- name: update loopback interfaces with active/active vtp
+  lineinfile: dest=/etc/network/interfaces.d/lo line="clagd-vxlan-anycast-ip {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}"
+  when: vxlan.vxrd.aa_vtep[ansible_hostname] is defined
+  sudo: yes
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - sudo cl-ospf interface set lo passive
+    - sudo cl-ospf interface set lo area 0.0.0.0
+    - cl-ospf network add {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}/32 area 0.0.0.0
+  when:  vxlan.vxsnd.routing_protocol.ospf
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - cl-bgp network add {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}/32
+    # Not required on leaves as each switch has it's own AS
+    # - cl-bgp allowas-in set neighbor EBGP
+  when:  vxlan.vxsnd.routing_protocol.ebgp
+
+- name: Add loopback interface so those routes get announced
+  command: "{{ item }}"
+  with_items:
+    - cl-bgp network add {{ vxlan.vxrd.aa_vtep[ansible_hostname] }}/32
+    # Need to reflect spines unicast addresses for vxsnd state distribution
+    - cl-bgp route-reflector-client set neighbor IBGP
+    - cl-bgp next-hop-self set neighbor IBGP
+  when:  vxlan.vxsnd.routing_protocol.ibgp
+
+- name: Save configuration to file
+  command: sudo cl-rctl write-config
+
+- name: turn on LNV registration node daemon
+  template: src=daemon.j2 dest=/etc/default/vxrd
+  sudo: yes
+  notify: restart vxrd 
+
+- name: stop clagd to workaround the anycast issue
+  service: name=clagd state=stopped
+  sudo: yes
+

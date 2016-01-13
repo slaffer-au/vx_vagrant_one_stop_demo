@@ -18,7 +18,7 @@ groups = {
 Vagrant.configure(2) do |config|
   
   config.vm.define "spine1" do |spine1|
-	spine1.vm.box = "cumulus-vx-2.5.3"
+	spine1.vm.box = "cumulus-vx-2.5.5"
 
     spine1.vm.hostname = "spine1"
     spine1.vm.network "private_network", virtualbox__intnet: "l1s1"
@@ -36,6 +36,7 @@ Vagrant.configure(2) do |config|
     end
     
     spine1.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111111"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -49,7 +50,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "spine2" do |spine2|
-	spine2.vm.box = "cumulus-vx-2.5.3"
+	spine2.vm.box = "cumulus-vx-2.5.5"
     spine2.vm.hostname = "spine2"
 
     spine2.vm.network "private_network", virtualbox__intnet: "l1s2"
@@ -67,6 +68,7 @@ Vagrant.configure(2) do |config|
     end
 
     spine2.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111112"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -79,7 +81,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "spine3" do |spine3|
-	spine3.vm.box = "cumulus-vx-2.5.3"
+	spine3.vm.box = "cumulus-vx-2.5.5"
 
     spine3.vm.hostname = "spine3"
     spine3.vm.network "private_network", virtualbox__intnet: "l1s3"
@@ -95,6 +97,7 @@ Vagrant.configure(2) do |config|
     end
     
     spine3.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111113"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -107,7 +110,7 @@ Vagrant.configure(2) do |config|
 
   end
   config.vm.define "leaf1" do |leaf1|
-	leaf1.vm.box = "cumulus-vx-2.5.3"
+	leaf1.vm.box = "cumulus-vx-2.5.5"
 
     leaf1.vm.hostname = "leaf1"
     leaf1.vm.network "private_network", virtualbox__intnet: "l1s1"
@@ -123,6 +126,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf1.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111121"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -136,7 +140,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "leaf2" do |leaf2|
-	leaf2.vm.box = "cumulus-vx-2.5.3"
+	leaf2.vm.box = "cumulus-vx-2.5.5"
 
     leaf2.vm.hostname = "leaf2"
     leaf2.vm.network "private_network", virtualbox__intnet: "l2s1"
@@ -152,6 +156,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf2.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111122"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -166,7 +171,7 @@ Vagrant.configure(2) do |config|
 
 
   config.vm.define "leaf3" do |leaf3|
-	leaf3.vm.box = "cumulus-vx-2.5.3"
+	leaf3.vm.box = "cumulus-vx-2.5.5"
 
     leaf3.vm.hostname = "leaf3"
     leaf3.vm.network "private_network", virtualbox__intnet: "l3s1"
@@ -182,6 +187,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf3.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111123"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -195,7 +201,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "leaf4" do |leaf4|
-	leaf4.vm.box = "cumulus-vx-2.5.3"
+	leaf4.vm.box = "cumulus-vx-2.5.5"
 
     leaf4.vm.hostname = "leaf4"
     leaf4.vm.network "private_network", virtualbox__intnet: "l4s1"
@@ -211,6 +217,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf4.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111124"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -224,7 +231,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "leaf5" do |leaf5|
-	leaf5.vm.box = "cumulus-vx-2.5.3"
+	leaf5.vm.box = "cumulus-vx-2.5.5"
 
     leaf5.vm.hostname = "leaf5"
     leaf5.vm.network "private_network", virtualbox__intnet: "l5s1"
@@ -240,6 +247,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf5.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111125"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
@@ -253,7 +261,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "leaf6" do |leaf6|
-	leaf6.vm.box = "cumulus-vx-2.5.3"
+	leaf6.vm.box = "cumulus-vx-2.5.5"
 
     leaf6.vm.hostname = "leaf6"
     leaf6.vm.network "private_network", virtualbox__intnet: "l6s1"
@@ -269,6 +277,7 @@ Vagrant.configure(2) do |config|
     end
 
     leaf6.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--macaddress1", "000000111126"]
       v.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc3", "allow-vms"]
       v.customize ["modifyvm", :id, "--nicpromisc4", "allow-vms"]
