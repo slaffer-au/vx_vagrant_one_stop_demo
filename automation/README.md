@@ -158,7 +158,7 @@ This topology demonstrates a deployment of VxLAN using Lightweight Network Virtu
   * The leaf active-active addresses are advertised into the routing protocol of choice by the leaf switches.
   * Additionally based on the routing protocol, to facilitate ```vxsnd``` fdb distribution between the spines:
    * eBGP: On the spines, the ```allowas-in``` parameter is set for the peer-group.
-   * iBGP: On the leaf switches, they are configured ```route-reflector-client``` and ```next-hop-self``` for the peer-group.
+   * iBGP: On the leaf switches, they are configured ```route-reflector-client``` and ```next-hop-self``` for the peer-group. Additionally, ```maximum-paths-ibgp set 64 equal-cluster-length``` is configured so BGP takes cluster-list length into the multipath calculation.
   * The VxLAN Service Node Daemon (```vxsnd```) is deployed and started on the spine switches and bound to the anycast address.
   
 
