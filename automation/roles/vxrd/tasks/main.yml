@@ -33,6 +33,8 @@
     # Need to reflect spines unicast addresses for vxsnd state distribution
     - cl-bgp route-reflector-client set neighbor IBGP
     - cl-bgp next-hop-self set neighbor IBGP
+    # Required to prevent installation of ECMP routes to spines, rather than bestpath
+    - cl-bgp maximum-paths-ibgp set 64 equal-cluster-length
   when:  vxlan.vxsnd.routing_protocol.ibgp
 
 - name: Save configuration to file
