@@ -122,7 +122,6 @@ This topology demonstrates a deployment of VxLAN using Lightweight Network Virtu
 
 ##### Details:
   * A routed IP fabric has been deployed previously through one of the above demonstrations.
-  * Each switch uses its loopback address as the VTEP address for single-attached orphan connections.
   * A shared address is deployed on the loopback of each leaf switch pair. This is used as the Active-Active mode VTEP address for all dual-connected hosts.
   * VNI interfaces are deployed on the leaf switches as required. ```VNI 20``` and ```VNI 400``` are deployed on all leaf switches, while ```VNI 3000``` is deployed on leaf1-2 and leaf5-6 only.
   * Traditional bridges are deployed on the leaf switches. 
