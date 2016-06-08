@@ -4,6 +4,15 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet dhcp
 
+auto bond0
+iface bond0 inet static
+        address {{ addresses[ansible_hostname].vl1 }}
+        netmask 255.255.255.0
+        bond-mode 802.3ad
+        bond-miimon 100
+        bond-slaves eth1 eth2
+        post-up ip link set promisc on dev bond0
+
 auto eth1
 iface eth1 inet manual
 bond-master bond0
@@ -13,15 +22,6 @@ auto eth2
 iface eth2 inet manual
 bond-master bond0
 post-up ip link set up dev eth2
-
-auto bond0
-iface bond0 inet static
-        address {{ addresses[ansible_hostname].vl1 }}
-        netmask 255.255.255.0
-        bond-mode 802.3ad
-        bond-miimon 100
-        bond-slaves eth1 eth2
-        post-up ip link set promisc on dev bond0
 
 auto bond0.10
 iface bond0.10 inet static
